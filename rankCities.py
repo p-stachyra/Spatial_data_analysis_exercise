@@ -2,7 +2,7 @@ import inspect
 import os
 import sys
 
-def rankCities(river_mouths_buffers_gdf, coastal_cities_gdf):
+def rankCities(river_mouths_buffers_gdf, coastal_cities_gdf, postfix):
     """Returns a GeoDataFrame - a ranking of cities within the buffer zone around river mouths centroids.
     Expects the river mouths buffers GeoDataFrame, cities of interest GeoDataFrame."""
 
@@ -17,8 +17,9 @@ def rankCities(river_mouths_buffers_gdf, coastal_cities_gdf):
         # make an output report in CSV file format
         if not os.path.isdir("cities_rank"):
             os.mkdir("cities_rank")
-        ranked_cities.to_csv("cities_rank/cities.csv")
-        ranked_cities.to_file("cities_rank/cities.gpkg", driver="GPKG", layer="cities")
+        # encoding must be set to UTF-8-SIG to properly encode letters of other languages than English
+        ranked_cities.to_csv(f"cities_rank/cities_{str(postfix)}.csv", encoding="utf-8-sig")
+        ranked_cities.to_file(f"cities_rank/cities_{str(postfix)}.gpkg", driver="GPKG", layer="cities")
     except Exception as ex:
         print("[ ! ] Error.\n[ ! ] Exception message: %s\nFunction: %s" % (ex, inspect.stack()[0][3]))
         sys.exit(-1)

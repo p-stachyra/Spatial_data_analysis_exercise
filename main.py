@@ -78,9 +78,9 @@ def main():
 
     # rank the cities which are located within the buffer zone around river mouths centroids according to
     # their population size.
-    cities = rankCities(river_mouths_buffers, cities_projected)
+    cities = rankCities(river_mouths_buffers, cities_projected, PROJECTCRS)
     # plot a map containing these cities
-    visualizeRankedCities(cities, river_mouths_buffers, rivers_projected, land_projected, "visualizations")
+    visualizeRankedCities(cities, river_mouths_buffers, rivers_projected, land_projected, "visualizations", PROJECTCRS)
 
     # measure program's performance
     finish = time.perf_counter()

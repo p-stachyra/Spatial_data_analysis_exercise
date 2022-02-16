@@ -42,7 +42,7 @@ def plotPreview(rivers_gdf, cities_gdf, land_gdf, output_directory, show_preview
     # return exitcode
     return 0
 
-def visualizeRankedCities(ranked_cities, river_mouths_buffer, rivers_projected_gdf, land_projected_gdf, output_directory):
+def visualizeRankedCities(ranked_cities, river_mouths_buffer, rivers_projected_gdf, land_projected_gdf, output_directory, postfix):
     """Creates a visualization of the ranked cities which are within the river mouths buffers.
     Expects the ranked cities, river_mouths_buffers, rivers, land GeoDataFrames
     and the directory to store plots."""
@@ -70,10 +70,10 @@ def visualizeRankedCities(ranked_cities, river_mouths_buffer, rivers_projected_g
 
         # check if Windows
         if (os.name == "nt"):
-            plt.savefig(f"{output_directory}\\ranked_cities.PNG")
+            plt.savefig(f"{output_directory}\\ranked_cities_{str(postfix)}.PNG")
         # otherwise use forward slash
         else:
-            plt.savefig(f"{output_directory}/ranked_cities.PNG")
+            plt.savefig(f"{output_directory}/ranked_cities_{str(postfix)}.PNG")
 
     except Exception as ex:
         print("[ ! ] Error.\n[ ! ] Exception message: %s\nFunction: %s" % (ex, inspect.stack()[0][3]))
