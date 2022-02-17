@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-def plotPreview(rivers_gdf, cities_gdf, land_gdf, output_directory, show_preview=False):
+def plotPreview(rivers_gdf, cities_gdf, land_gdf, output_directory, figwidth, figheight, filename_postfix, show_preview=False):
     try:
         # extract figure and axes
-        fig, ax = plt.subplots(1, 1, figsize=(20, 30))
+        fig, ax = plt.subplots(1, 1, figsize=(figwidth, figheight))
 
         # Plot rivers
         rivers_gdf.plot(ax=ax, markersize=0.1, alpha=0.5, color="blue")
@@ -21,15 +21,15 @@ def plotPreview(rivers_gdf, cities_gdf, land_gdf, output_directory, show_preview
             os.mkdir(output_directory)
 
         # title of the visualization
-        plt.title("Cities and Rivers", size=20)
+        plt.title("Cities and Rivers", size=figheight)
         plt.tight_layout()
 
         # check if Windows
         if (os.name == "nt"):
-            plt.savefig(f"{output_directory}\\cities_rivers_global.PNG")
+            plt.savefig(f"{output_directory}\\cities_rivers_global_{filename_postfix}.PNG")
         # otherwise use forward slash
         else:
-            plt.savefig(f"{output_directory}/cities_rivers_global.PNG")
+            plt.savefig(f"{output_directory}/cities_rivers_global_{filename_postfix}.PNG")
 
         # if preview is selected to be show, display the plot
         if (show_preview):
@@ -42,14 +42,14 @@ def plotPreview(rivers_gdf, cities_gdf, land_gdf, output_directory, show_preview
     # return exitcode
     return 0
 
-def visualizeRankedCities(ranked_cities, river_mouths_buffer, rivers_projected_gdf, land_projected_gdf, output_directory, postfix):
+def visualizeRankedCities(ranked_cities, river_mouths_buffer, rivers_projected_gdf, land_projected_gdf, output_directory, figwidth, figheight, postfix):
     """Creates a visualization of the ranked cities which are within the river mouths buffers.
     Expects the ranked cities, river_mouths_buffers, rivers, land GeoDataFrames
     and the directory to store plots."""
 
     try:
         # extract figure and axes
-        fig, ax = plt.subplots(figsize=(20, 30))
+        fig, ax = plt.subplots(figsize=(figwidth, figheight))
 
         rivers_projected_gdf.plot(ax=ax, markersize=0.1, alpha=0.3, color="blue")
         # Plot cities according to their size
@@ -65,7 +65,7 @@ def visualizeRankedCities(ranked_cities, river_mouths_buffer, rivers_projected_g
             os.mkdir(output_directory)
 
         # title of the visualization
-        plt.title("Ranked Cities", size=20)
+        plt.title("Ranked Cities", size=figheight)
         plt.tight_layout()
 
         # check if Windows

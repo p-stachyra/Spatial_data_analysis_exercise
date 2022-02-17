@@ -58,7 +58,8 @@ def main():
     # plot the global preview for all rivers, cities. In the context of land
     # (ocean is assumed to be a blank space of NULL)
     # the output is directed to 'visualizations' folder
-    plotPreview(rivers, cities, land, "visualizations", show_preview=False)
+    plotPreview(rivers, cities, land, "visualizations", 30, 20, "better_resolution", show_preview=False)
+    plotPreview(rivers, cities, land, "visualizations", 10, 7, "worse_resolution", show_preview=False)
 
     land_projected, cities_projected, rivers_projected, ocean_projected = unifyCRS(PROJECTCRS, land, cities, rivers, ocean)
 
@@ -80,7 +81,8 @@ def main():
     # their population size.
     cities = rankCities(river_mouths_buffers, cities_projected, PROJECTCRS)
     # plot a map containing these cities
-    visualizeRankedCities(cities, river_mouths_buffers, rivers_projected, land_projected, "visualizations", PROJECTCRS)
+    visualizeRankedCities(cities, river_mouths_buffers, rivers_projected, land_projected, "visualizations", 30, 20, f"{PROJECTCRS}_better_res")
+    visualizeRankedCities(cities, river_mouths_buffers, rivers_projected, land_projected, "visualizations", 10, 7, f"{PROJECTCRS}_worse_res")
 
     # measure program's performance
     finish = time.perf_counter()
